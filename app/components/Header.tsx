@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+
 export interface HeaderProps {
   title?: string;
   showBack?: boolean;
@@ -17,6 +18,7 @@ export default function Header({
   onSearchPress,
 }: HeaderProps) {
   return (
+    
     <View style={styles.header}>
       {showBack ? (
         <TouchableOpacity onPress={onBackPress} style={styles.button}>
@@ -34,10 +36,12 @@ export default function Header({
         <View style={styles.button} />
       )}
     </View>
+    
   );
 }
 
 const styles = StyleSheet.create({
+  
   header: {
     height: 56,
     flexDirection: 'row',

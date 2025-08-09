@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Footer, { FooterProps } from './Footer';
 import Header, { HeaderProps } from './Header';
 
@@ -21,20 +22,24 @@ export default function AppLayout({
   style,
 }: AppLayoutProps) {
   return (
-    <View style={[styles.container, style]}>
+    <SafeAreaView style={[styles.safeArea, style]} edges={['top', 'left', 'right', 'bottom']}>
+    {/* <View style={[styles.container, style]}> */}
       {showHeader && <Header {...headerProps} />}
       <View style={styles.content}>{children}</View>
       {showFooter && <Footer {...footerProps} />}
-    </View>
+    {/* </View> */}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+   safeArea: {
+    // backgroundColor: '#000',
     flex: 1,
-    backgroundColor: '#fff',
   },
   content: {
     flex: 1,
+    backgroundColor: '#fff',
+    position: 'relative', // ✅ 이걸 추가하세요!
   },
 });
