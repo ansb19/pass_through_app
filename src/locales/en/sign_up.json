@@ -1,0 +1,10 @@
+{
+    "title": "Sign up",
+    "nickname": "Nickname",
+    "birth_date": "Birth Date",
+    "email": "Email",
+    "phone": "Phone",
+    "verify": "Verify",
+    "input_nickname": "Input Nickname",
+    "next": "Next"
+}

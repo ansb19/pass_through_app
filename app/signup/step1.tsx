@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Keyboard,
     StyleSheet,
@@ -14,13 +15,13 @@ import AppLayout from '../components/AppLayout';
 
 export default function SignupStepOneScreen() {
     const router = useRouter();
-
+    const {t} = useTranslation('sign_up');
     return (
         <AppLayout
             showHeader={true}
             showFooter={false}
             headerProps={{
-                title: '회원가입',
+                title: t('title'),
                 showBack: true,
                 onBackPress: () => router.back(),
             }}
@@ -42,10 +43,13 @@ export default function SignupStepOneScreen() {
                     >
                         <View style={styles.wrapper}>
                             {/* 스크롤되는 입력 영역 */}
-                            <Text style={styles.label}>닉네임</Text>
-                            <TextInput style={styles.input} placeholder="닉네임 입력" />
+                            <Text style={styles.label}>{t('nickname')}</Text>
+                            <TextInput style={styles.input} placeholder={t('input_nickname')} />
 
-                            <Text style={styles.label}>이메일</Text>
+                            <Text style={styles.label}>{t('birth_date')}</Text>
+                            <TextInput style={styles.input} placeholder="ex) 19970710" />
+
+                            <Text style={styles.label}>{t('email')}</Text>
                             <View style={styles.inputRow}>
                                 <TextInput
                                     style={[styles.input, { flex: 1 }]}
@@ -53,11 +57,11 @@ export default function SignupStepOneScreen() {
                                     keyboardType="email-address"
                                 />
                                 <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.buttonText}>인증</Text>
+                                    <Text style={styles.buttonText}>{t('verify')}</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            <Text style={styles.label}>휴대폰 번호</Text>
+                            <Text style={styles.label}>{t('phone')}</Text>
                             <View style={styles.inputRow}>
                                 <TextInput
                                     style={[styles.input, { flex: 1 }]}
@@ -65,7 +69,7 @@ export default function SignupStepOneScreen() {
                                     keyboardType="phone-pad"
                                 />
                                 <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.buttonText}>인증</Text>
+                                    <Text style={styles.buttonText}>{t('verify')}</Text>
                                 </TouchableOpacity>
                             </View>
 
@@ -80,7 +84,7 @@ export default function SignupStepOneScreen() {
                             style={styles.nextButton}
                             onPress={() => router.push('/signup/step2')}
                         >
-                            <Text style={styles.nextText}>다음</Text>
+                            <Text style={styles.nextText}>{t('next')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

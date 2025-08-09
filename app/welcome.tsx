@@ -1,9 +1,11 @@
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from './_layout';
 import AppLayout from './components/AppLayout';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 
 const { width } = Dimensions.get('window');
@@ -14,16 +16,18 @@ interface WelcomeScreenProps {
 }
 
 export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
+  const {t} = useTranslation();
   const router = useRouter();
   return (
     <AppLayout
       showHeader={false}
       showFooter={false}
       headerProps={{
-        title: 'pass through',
+        title: t('app_name'),
       }}
     >
       <View style={styles.content}>
+        
         {/* pass_through 대표 이미지/로고 */}
         <Image
           source={require("../assets/app/icon.png")} // 준비한 로고 파일 경로로 변경
@@ -39,8 +43,7 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
         {/* 환영 메시지 */}
         <Text style={styles.title}>Welcome to pass through</Text>
         <Text style={styles.desc}>
-          안전하게, 간편하게
-          내 소중한 정보를 관리하세요.
+          {t('app_description')}
         </Text>
         {/* 버튼 그룹 */}
         <View style={styles.buttonGroup}>
@@ -48,14 +51,22 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
             style={styles.loginBtn}
             onPress={() => router.push('/login')}
           >
-            <Text style={styles.loginBtnText}>로그인</Text>
+            <Text style={styles.loginBtnText}>{t('login')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.signupBtn}
             onPress={() => router.push('/signup/step1')}
           >
-            <Text style={styles.signupBtnText}>회원가입</Text>
+            <Text style={styles.signupBtnText}>{t('sign_up')}</Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.findBtn}                    // NEW
+            onPress={() => router.push('/find_info')} // NEW
+          >
+            <Text style={styles.findBtnText}>{t('find_info')}</Text> {/* NEW */}
+          </TouchableOpacity>
+
+          <LanguageSwitcher />
         </View>
       </View>
     </AppLayout>
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
   buttonGroup: {
     width: '100%',
     alignItems: 'center',
-    gap: 16,
+    gap: 24,
   },
   loginBtn: {
     width: width * 0.8,
@@ -107,7 +118,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 14,
     alignItems: 'center',
-    marginBottom: 10,
     shadowColor: '#0050b8',
     shadowOpacity: 0.14,
     shadowOffset: { width: 0, height: 4 },
@@ -132,5 +142,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     letterSpacing: -0.5,
+  },
+    findBtn: {
+    width: width * 0.8,
+    backgroundColor: '#0050b8',
+    paddingVertical: 15,
+    borderRadius: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#0050b8',
+  },
+  findBtnText: {
+    color: '#e6eaf2',
+    fontWeight: '600',
+    fontSize: 16,
+    letterSpacing: -0.3,
   },
 });

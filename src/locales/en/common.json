@@ -1,0 +1,15 @@
+{
+  "app_name": "pass through",
+  "app_description": "Safely, Simply, You save your privacy",
+  "login": "Log in",
+  "sign_up": "Sign up",
+  "find_info": "Find my info",
+  "find_device": "Find my device",
+  "find_pin": "Find my PIN number",
+  "home": "Home",
+  "share": "Share",
+  "qr": "QR",
+  "support": "Support",
+  "profile": "Profile"
+  
+}

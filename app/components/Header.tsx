@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 
@@ -16,7 +17,9 @@ export default function Header({
   showSearch = false,
   onBackPress,
   onSearchPress,
-}: HeaderProps) {
+}: HeaderProps) 
+{
+  const { t } = useTranslation();
   return (
     
     <View style={styles.header}>
@@ -27,7 +30,7 @@ export default function Header({
       ) : (
         <View style={styles.button} />
       )}
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{title ?? t('appName')}</Text>
       {showSearch ? (
         <TouchableOpacity onPress={onSearchPress} style={styles.button}>
           <Text style={styles.icon}>🔍</Text>

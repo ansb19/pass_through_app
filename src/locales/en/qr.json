@@ -1,0 +1,8 @@
+{
+  "scan_title": "Scan QR",
+  "camera_permission_title": "Camera permission required",
+  "camera_permission_msg": "We need access to your camera to scan QR codes.",
+  "open_settings": "Open Settings",
+  "scanning": "Scanning…",
+  "invalid_qr": "Invalid or expired QR."
+}

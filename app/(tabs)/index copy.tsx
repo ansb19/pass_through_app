@@ -41,11 +41,11 @@ export default function HomeScreen() {
         </Text>
         <Text style={styles.subtitle}>Step 2: Explore</Text>
         <Text style={styles.text}>
-          Tap the Explore tab to learn more about what's included in this starter app.
+          Tap the Explore tab to learn more about whats included in this starter app.
         </Text>
         <Text style={styles.subtitle}>Step 3: Get a fresh start</Text>
         <Text style={styles.text}>
-          When you're ready, run <Text style={styles.bold}>npm run reset-project</Text> to get a fresh{' '}
+          When youre ready, run <Text style={styles.bold}>npm run reset-project</Text> to get a fresh{' '}
           <Text style={styles.bold}>app</Text> directory. This will move the current <Text style={styles.bold}>app</Text> to{' '}
           <Text style={styles.bold}>app-example</Text>.
         </Text>
