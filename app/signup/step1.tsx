@@ -1,163 +1,75 @@
+// app/signup/step1.tsx
 import { useRouter } from 'expo-router';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-    Keyboard,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View
-} from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+
+import { useSignupStore } from '@/src/stores/signup_store';
+import React, { useState } from 'react';
+import { Alert, View } from 'react-native';
 import AppLayout from '../components/AppLayout';
+import ProfileForm, { ProfileFormValues } from '../components/forms/ProfileForm';
 
 export default function SignupStepOneScreen() {
     const router = useRouter();
-    const {t} = useTranslation('sign_up');
+    const setMany = useSignupStore((s) => s.setMany);
+
+    const [emailVerified, setEmailVerified] = useState(false);
+    const [phoneVerified, setPhoneVerified] = useState(false);
+
+
+    const handleVerifyEmail = async (email: string) => {
+        try {
+            // TODO: 백엔드에 /auth/email/send 요청 -> 코드 입력 모달 -> /auth/email/verify
+            // 성공 시:
+            setEmailVerified(true);
+            Alert.alert('이메일 인증', '이메일 인증이 완료되었습니다.');
+        } catch (e) {
+            Alert.alert('이메일 인증 실패', '다시 시도해 주세요.');
+        }
+    };
+
+    const handleVerifyPhone = async (phone: string) => {
+        try {
+            // TODO: /auth/sms/send -> 코드 입력 -> /auth/sms/verify
+            setPhoneVerified(true);
+            Alert.alert('휴대폰 인증', '휴대폰 인증이 완료되었습니다.');
+        } catch (e) {
+            Alert.alert('휴대폰 인증 실패', '다시 시도해 주세요.');
+        }
+    };
+
+    const handleSubmit = (values: ProfileFormValues) => {
+        // 필요한 것만 저장 (예: 인증 플래그는 별도 로직에서)
+        setMany({
+            nickname: values.nickname,
+            birthDate: values.birthDate,
+            email: values.email,
+            emailVerified: true,
+            phone: values.phone,
+            phoneVerified: true,
+        });
+        router.push('/signup/step2');
+    };
+
     return (
-        <AppLayout
-            showHeader={true}
-            showFooter={false}
-            headerProps={{
-                title: t('title'),
-                showBack: true,
-                onBackPress: () => router.back(),
-            }}
-        >
-
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                <View style={{ flex: 1 }}>
-                    {/* 📦 키보드-aware 스크롤 영역 */}
-                    <KeyboardAwareScrollView
-                        style={{ flex: 1 }}
-                        contentContainerStyle={styles.container}
-                        extraScrollHeight={40} // 키보드 높이만큼 여유 공간 추가
-                        scrollEnabled={true}
-                        enableOnAndroid={true}
-                        keyboardShouldPersistTaps="handled"
-                        enableAutomaticScroll={true}
-                        extraHeight={75} // 추가 오프셋
-                        enableResetScrollToCoords={true} // 스크롤 위치 초기화 허용
-                    >
-                        <View style={styles.wrapper}>
-                            {/* 스크롤되는 입력 영역 */}
-                            <Text style={styles.label}>{t('nickname')}</Text>
-                            <TextInput style={styles.input} placeholder={t('input_nickname')} />
-
-                            <Text style={styles.label}>{t('birth_date')}</Text>
-                            <TextInput style={styles.input} placeholder="ex) 19970710" />
-
-                            <Text style={styles.label}>{t('email')}</Text>
-                            <View style={styles.inputRow}>
-                                <TextInput
-                                    style={[styles.input, { flex: 1 }]}
-                                    placeholder="example@email.com"
-                                    keyboardType="email-address"
-                                />
-                                <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.buttonText}>{t('verify')}</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            <Text style={styles.label}>{t('phone')}</Text>
-                            <View style={styles.inputRow}>
-                                <TextInput
-                                    style={[styles.input, { flex: 1 }]}
-                                    placeholder="010-0000-0000"
-                                    keyboardType="phone-pad"
-                                />
-                                <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.buttonText}>{t('verify')}</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* 아래 고정 버튼 때문에 공간 확보 */}
-                            <View style={{ height: 80 }} />
-                        </View>
-                    </KeyboardAwareScrollView>
-
-                    {/* 하단 고정 버튼 */}
-                    <View style={styles.fixedBottom}>
-                        <TouchableOpacity
-                            style={styles.nextButton}
-                            onPress={() => router.push('/signup/step2')}
-                        >
-                            <Text style={styles.nextText}>{t('next')}</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </TouchableWithoutFeedback>
-        </AppLayout >
+        <AppLayout showHeader={true} showFooter={false} headerProps={{
+            title: '회원가입', showBack: true, onBackPress() {
+                router.back();
+            },
+        }}>
+            <View style={{ padding: 20, paddingBottom: 140, flex: 1 }}>
+                <ProfileForm
+                    mode="signup"
+                    showVerifyButtons
+                    emailVerified={emailVerified}
+                    phoneVerified={phoneVerified}
+                    lockVerifiedFields={true}          // 인증 완료면 필드 잠금 + "변경" 링크
+                    autoInvalidateOnEdit={false}       // 잠금 모드일 땐 굳이 자동 무효화 불필요
+                    onInvalidateEmail={() => setEmailVerified(false)}
+                    onInvalidatePhone={() => setPhoneVerified(false)}
+                    onVerifyEmail={handleVerifyEmail}
+                    onVerifyPhone={handleVerifyPhone}
+                    onSubmit={handleSubmit}
+                />
+            </View>
+        </AppLayout>
     );
 }
-
-const styles = StyleSheet.create({
-    wrapper: {
-        flex: 1,
-        position: 'relative',
-
-    },
-    container: {
-        padding: 20,
-        paddingTop: 32,
-        paddingBottom: 140,
-        flexGrow: 1,
-
-    },
-    label: {
-        fontSize: 15,
-        color: '#374151',
-        marginBottom: 6,
-        marginTop: 16,
-        fontWeight: '600',
-    },
-    input: {
-        backgroundColor: '#fff',
-        borderColor: '#d1d5db',
-        borderWidth: 1,
-        borderRadius: 8,
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-        fontSize: 15,
-        lineHeight: 22, // ← 이 부분 추가!
-        textAlignVertical: 'center',
-    },
-    inputRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 10,
-    },
-    button: {
-        backgroundColor: '#3b82f6',
-        paddingHorizontal: 14,
-        paddingVertical: 10,
-        borderRadius: 8,
-    },
-    buttonText: {
-        color: '#fff',
-        fontWeight: '600',
-    },
-    fixedBottom: {
-        position: 'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        padding: 16,
-        backgroundColor: '#f9fafc',
-        borderTopWidth: 1,
-        borderTopColor: '#e5e7eb',
-    },
-    nextButton: {
-        backgroundColor: '#10b981',
-        paddingVertical: 14,
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    nextText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: '700',
-    },
-});

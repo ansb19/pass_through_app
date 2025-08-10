@@ -4,17 +4,17 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 // JSON 파일 임포트
-import enAuth from './locales/en/auth.json';
-import enCommon from './locales/en/common.json';
-import enHome from './locales/en/home.json';
-import enQr from './locales/en/qr.json';
-import enSignup from './locales/en/sign_up.json';
+import enAuth from './en/auth.json';
+import enCommon from './en/common.json';
+import enHome from './en/home.json';
+import enQr from './en/qr.json';
+import enSignup from './en/sign_up.json';
 
-import koAuth from './locales/ko/auth.json';
-import koCommon from './locales/ko/common.json';
-import koHome from './locales/ko/home.json';
-import koQr from './locales/ko/qr.json';
-import koSignup from './locales/ko/sign_up.json';
+import koAuth from './ko/auth.json';
+import koCommon from './ko/common.json';
+import koHome from './ko/home.json';
+import koQr from './ko/qr.json';
+import koSignup from './ko/sign_up.json';
 
 const STORAGE_KEY = 'app_language';
 

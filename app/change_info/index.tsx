@@ -7,7 +7,7 @@ import AppLayout from '../components/AppLayout';
 
 const { width } = Dimensions.get('window');
 
-export default function FindInfoScreen() {
+export default function ChangeInfoScreen() {
   const router = useRouter();
   const {t} = useTranslation();
 
@@ -16,7 +16,7 @@ export default function FindInfoScreen() {
       showHeader={true}
       showFooter={false}
       headerProps={{
-        title: t('find_info'),
+        title: t('change_info'),
         showBack: true,
         onBackPress: () => router.back(),
       }}
@@ -25,17 +25,17 @@ export default function FindInfoScreen() {
         {/* 내 기기 찾기 */}
         <TouchableOpacity
           style={styles.mainBtn}
-          onPress={() => router.push('/find_info/find_device')}
+          onPress={() => router.push('./change_info/change_device')}
         >
-          <Text style={styles.mainBtnText}>{t('find_device')}</Text>
+          <Text style={styles.mainBtnText}>{t('change_device')}</Text>
         </TouchableOpacity>
 
         {/* PIN 번호 찾기 */}
         <TouchableOpacity
           style={styles.mainBtn}
-          onPress={() => router.push('/find_info/find_pin')}
+          onPress={() => router.push('./change_info/change_pin')}
         >
-          <Text style={styles.mainBtnText}>{t('find_pin')}</Text>
+          <Text style={styles.mainBtnText}>{t('change_pin')}</Text>
         </TouchableOpacity>
       </View>
     </AppLayout>

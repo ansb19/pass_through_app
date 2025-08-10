@@ -1,10 +1,10 @@
-// app/find_info/find_device.tsx
+// app/change_info/change_device.tsx
 import { router } from 'expo-router';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import AppLayout from '../components/AppLayout';
 
-export default function FindDeviceScreen() {  // ← default export
+export default function ChangeDeviceScreen() {  // ← default export
   return (
     <AppLayout 
     showHeader={true}

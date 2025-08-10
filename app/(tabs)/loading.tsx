@@ -1,53 +1,36 @@
-import LottieView from 'lottie-react-native';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import AppLayout from '../components/AppLayout';
 
-export default function HomeScreen() {
-    const [loading, setLoading] = React.useState(true);
-    const [data, setData] = React.useState<{ message: string } | null>(null);
+import { Text, View } from 'react-native';
+import LoadingScreen from '../components/Loading';
 
-    React.useEffect(() => {
-        // 예시: 2초 후에 데이터를 불러온다고 가정
-        setTimeout(() => {
-            setData({ message: '데이터 불러오기 완료!' });
-            setLoading(false);
-        }, 2000);
-    }, []);
+type Data = { message: string } | null;
 
-    // 1. 데이터가 아직 로딩 중일 때
-    if (loading) {
-        return (
-            <View style={styles.loadingWrap}>
-                <LottieView
-                    source={require('../../assets/app/loading_animation.json')}
-                    autoPlay
-                    loop
-                    style={{ width: 200, height: 200, marginBottom: 32 }}
-                />
-                <ActivityIndicator size="large" color="#0050b8" />
-                <Text style={{ marginTop: 16 }}>로딩 중입니다...</Text>
-            </View>
-        );
-    }
+export default function SomePage() {
+  const [loading, setLoading] = React.useState(true);
+  const [data, setData] = React.useState<Data>(null);
 
-    // 2. 데이터가 로딩 끝났을 때
-    return (
-        <View style={styles.container}>
-            <Text>실제 화면: {data ? data.message : ''}</Text>
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setData({ message: '완료!' });
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <AppLayout showHeader showFooter>
+      {loading ? (
+        <>
+          <Text>test</Text>
+          <LoadingScreen message="데이터를 불러오는 중입니다..." />
+        </>
+      ) : (
+        <View>
+          <Text>{data?.message}</Text>
         </View>
-    );
+      )}
+    </AppLayout>
+  );
 }
-
-const styles = StyleSheet.create({
-    loadingWrap: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#fff'
-    },
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-});
