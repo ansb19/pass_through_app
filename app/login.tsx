@@ -1,11 +1,11 @@
-import * as LocalAuthentication from 'expo-local-authentication';
+import { requireBiometric } from '@/src/domains/auth/requireBiometric';
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
-import AppLayout from './components/AppLayout';
-import PasscodePad from './components/PasscodePad';
+import AppLayout from './_components/AppLayout';
+import PasscodePad from './_components/PasscodePad';
 
 
 export default function LoginScreen() {
@@ -15,40 +15,46 @@ export default function LoginScreen() {
     // ⚠️ PIN은 화면/로그에 노출하지 말 것
     // TODO: 여기서 PIN 검증 or 파생키 생성(KDF) 등 처리
 
-    // 생체 인증(선택)
-    const hasHW = await LocalAuthentication.hasHardwareAsync();
-    const enrolled = await LocalAuthentication.isEnrolledAsync();
-
-    if (hasHW && enrolled) {
-      const result = await LocalAuthentication.authenticateAsync({
-        promptMessage: t('biometric_prompt'),
-        disableDeviceFallback: true,
-      });
-      if (!result.success) {
-        // 실패 처리 (필요 시 진동/토스트)
-        return;
+    // 2) 생체 인증
+    const bio = await requireBiometric(t('biometric_prompt'));
+    if (!bio.ok) {
+      // 필요시: bio.reason에 따라 토스트/폴백 처리
+      if (bio.fallbackToPin) {
+        // 예: “생체 인증 불가/실패 → PIN만으로 계속 진행” or 재시도
       }
+      return;
     }
 
     // 성공 → 홈으로 전환(뒤로가기로 로그인 못 돌아오게 replace 권장)
     router.replace('/home');
+
+    // try {
+    //   await Notifications.scheduleNotificationAsync({
+    //     content: {
+    //       title: '로그인 완료',
+    //       body: '보안 확인이 끝났어요.',
+    //     },
+    //     trigger: null, // 즉시
+    //   });
+    // } catch (e) {
+    //   console.log('local notification error', e);
+    // }
   };
 
   return (
     <AppLayout
-      showHeader
       showFooter={false}
-      headerProps={{ title: t('title'), showBack: true, onBackPress: () => router.back() }}
+      headerProps={{ title: t('title'), onBackPress: () => router.back() }}
     >
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={{ flex: 1, alignItems: 'center', paddingTop: 24 }}>
-                <LottieView
+          <LottieView
             source={require('../assets/app/login_animation.json')}
             autoPlay
             loop
             style={styles.lottie}
           />
-          
+
           <PasscodePad
             title={t('pin_title')}
             subtitle={t('pin_subtitle')}

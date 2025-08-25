@@ -1,8 +1,8 @@
 import React from 'react';
-import AppLayout from '../components/AppLayout';
+import AppLayout from '../_components/AppLayout';
 
 import { Text, View } from 'react-native';
-import LoadingScreen from '../components/Loading';
+import LoadingScreen from '../_components/Loading';
 
 type Data = { message: string } | null;
 
@@ -20,7 +20,7 @@ export default function SomePage() {
   }, []);
 
   return (
-    <AppLayout showHeader showFooter>
+    <AppLayout>
       {loading ? (
         <>
           <Text>test</Text>

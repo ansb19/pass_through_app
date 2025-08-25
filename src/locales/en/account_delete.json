@@ -1,0 +1,15 @@
+{
+    "title": "Delete Account",
+    "confirm_title": "Are you sure you want to delete your account?",
+    "confirm_desc": "To proceed, please type your nickname exactly.",
+    "warn_text": "Once requested, your account will be permanently deleted in {{days}} days and cannot be recovered.",
+    "label_nickname": "Confirm Nickname",
+    "ph_nickname": "{{nickname}}",
+    "btn_cancel": "Cancel",
+    "btn_delete": "Proceed to Delete",
+    "alert_mismatch_title": "Verification Required",
+    "alert_mismatch_desc": "The nickname does not match.",
+    "alert_done_title": "Deletion Requested",
+    "alert_done_desc": "Your account will be permanently deleted in {{days}} days and cannot be recovered.",
+    "ok": "OK"
+}

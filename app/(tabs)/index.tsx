@@ -1,4 +1,4 @@
-import AppLayout from '@/app/components/AppLayout';
+import AppLayout from '@/app/_components/AppLayout';
 import React from 'react';
 import { Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 

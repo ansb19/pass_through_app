@@ -1,0 +1,30 @@
+{
+    "title": "Submit a Ticket",
+    "category_label": "Category",
+    "category": {
+        "general": "General",
+        "account": "Account",
+        "security": "Security",
+        "share": "Sharing"
+    },
+    "title_label": "Title",
+    "title_ph": "e.g., The share link won't open",
+    "body_label": "Description",
+    "body_ph": "Add details like symptoms, time, device/OS/app version, etc.",
+    "contact_label": "Contact (optional)",
+    "contact_ph": "Email or phone number",
+    "attachment_label": "Attachment (optional)",
+    "file_select": "Choose File",
+    "file_delete": "Remove",
+    "submit": "Send Ticket",
+    "submitting": "Sending...",
+    "err_title_min": "Please enter at least 5 characters for the title.",
+    "err_body_min": "Please enter at least 10 characters for the content.",
+    "attach_fail_title": "Attachment Failed",
+    "attach_fail_desc": "There was a problem selecting the file.",
+    "submit_success_title": "Submitted",
+    "submit_success_desc": "Your ticket has been submitted.",
+    "ok": "OK",
+    "error_title": "Error",
+    "submit_fail_desc": "Failed to submit the ticket."
+}

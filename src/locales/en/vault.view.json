@@ -1,0 +1,16 @@
+{
+    "title": "View item",
+    "updated": "Updated",
+    "reveal": "Reveal",
+    "hide": "Hide",
+    "auth_prompt": "Please verify your identity with biometrics.",
+    "copied_title": "Copied",
+    "copied_desc": "Copied to clipboard.",
+    "copy_fail": "Failed to copy.",
+    "field": {
+        "site": "Site/App",
+        "username": "Username",
+        "password": "Password",
+        "note": "Note"
+    }
+}

@@ -1,5 +1,5 @@
 {
-  "app_name": "pass through",
+  "app_name": "Pass Through",
   "app_description": "Safely, Simply, You save your privacy",
   "login": "Log in",
   "sign_up": "Sign up",
@@ -9,7 +9,12 @@
   "home": "Home",
   "share": "Share",
   "qr": "QR",
-  "support": "Support",
-  "profile": "Profile"
+  "personal_info": "Privacy",
+  "profile": "Profile",
+  "cancel": "Cancel",
+  "error": "Error",
+  "loading": "Loading...",
+  "agree_and_continue": "Agree & Continue",
+  "main_title": "Welcome to Pass Through"
   
 }

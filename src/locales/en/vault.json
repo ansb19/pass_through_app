@@ -1,0 +1,177 @@
+{
+    "add_title": "Add to Vault",
+    "type_names": {
+        "account": "Account",
+        "card": "Card",
+        "id": "ID",
+        "license": "License/Certificate",
+        "memo": "Secure Memo",
+        "device": "My Device",
+        "photo": "Photo Meta",
+        "other": "Other"
+    },
+    "fields": {
+        "account": {
+            "urlOrName": {
+                "label": "Site/App name or URL",
+                "ph": "e.g. Woori Bank or https://..."
+            },
+            "username": {
+                "label": "Username",
+                "ph": "e.g. user@example.com"
+            },
+            "password": {
+                "label": "Password",
+                "ph": "••••••••"
+            },
+            "note": {
+                "label": "Account note",
+                "ph": "Owner, 2FA, etc."
+            }
+        },
+        "card": {
+            "number": {
+                "label": "Card number",
+                "ph": "1234-5678-9012-3456"
+            },
+            "expiry": {
+                "label": "Expiry",
+                "ph": "MM/YY"
+            },
+            "name": {
+                "label": "Name",
+                "ph": "Card holder"
+            },
+            "cvc": {
+                "label": "CVC",
+                "ph": "3 digits"
+            },
+            "brand": {
+                "label": "Brand",
+                "ph": "e.g. Hyundai/Shinhan/KB"
+            },
+            "note": {
+                "label": "Card note",
+                "ph": "Debit/credit, benefits, usage, etc."
+            }
+        },
+        "id": {
+            "name": {
+                "label": "Name",
+                "ph": "Hong Gildong"
+            },
+            "regNo": {
+                "label": "Resident reg. no.",
+                "ph": "000000-0000000"
+            },
+            "address": {
+                "label": "Address",
+                "ph": "Address"
+            },
+            "issuedAt": {
+                "label": "Issued on",
+                "ph": "YYYY-MM-DD"
+            },
+            "note": {
+                "label": "Note",
+                "ph": "Additional note"
+            }
+        },
+        "license": {
+            "licenseName": {
+                "label": "License/Certificate",
+                "ph": "e.g. Driver’s License Class 1"
+            },
+            "licenseNo": {
+                "label": "License/Cert. no.",
+                "ph": "Number"
+            },
+            "issuer": {
+                "label": "Issuer",
+                "ph": "e.g. KoROAD"
+            },
+            "issuedAt": {
+                "label": "Issued on",
+                "ph": "YYYY-MM-DD"
+            },
+            "expiresAt": {
+                "label": "Expires (optional)",
+                "ph": "YYYY-MM-DD"
+            },
+            "note": {
+                "label": "Note",
+                "ph": "Remarks"
+            }
+        },
+        "memo": {
+            "title": {
+                "label": "Title",
+                "ph": "e.g. Internet banking memo"
+            },
+            "body": {
+                "label": "Body",
+                "ph": "Type here"
+            }
+        },
+        "device": {
+            "model": {
+                "label": "Model",
+                "ph": "e.g. iPhone 15 Pro"
+            },
+            "serial": {
+                "label": "Serial no.",
+                "ph": "Serial"
+            },
+            "purchasedAt": {
+                "label": "Purchased on",
+                "ph": "YYYY-MM-DD"
+            },
+            "warrantyUntil": {
+                "label": "Warranty until",
+                "ph": "YYYY-MM-DD"
+            },
+            "note": {
+                "label": "Device note",
+                "ph": "Remarks"
+            }
+        },
+        "photo": {
+            "title": {
+                "label": "Photo title",
+                "ph": "e.g. Passport scan"
+            },
+            "file": {
+                "label": "File",
+                "ph": "Choose a file"
+            },
+            "note": {
+                "label": "Note (optional)",
+                "ph": "Shooting/scan note"
+            }
+        },
+        "other": {
+            "title": {
+                "label": "Item name",
+                "ph": "e.g. Serial/Coupon"
+            },
+            "content": {
+                "label": "Content",
+                "ph": "Type here"
+            }
+        }
+    },
+    "helpers": {
+        "regNo": "We don’t recommend storing a resident ID number. If you must, manage it carefully.",
+        "file": "We don’t recommend uploading sensitive photos. Use only if necessary. (Upload to be integrated later)"
+    },
+    "actions": {
+        "save": "Save",
+        "saving": "Saving…"
+    },
+    "alerts": {
+        "saved_title": "Saved",
+        "saved_body": "Your item has been added.",
+        "fail_title": "Failed",
+        "fail_body": "Could not save."
+    }
+}

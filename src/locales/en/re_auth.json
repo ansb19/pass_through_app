@@ -1,0 +1,9 @@
+{
+    "title_default": "Security Check",
+    "helper": "For your security, please enter your PIN and then complete biometric auth.",
+    "pin_title": "Enter your 6-digit PIN",
+    "pin_subtitle": "It will continue automatically after input",
+    "pin_invalid_title": "Verification Failed",
+    "pin_invalid_msg": "The PIN you entered is invalid.",
+    "biometric_prompt": "Please complete biometric authentication to proceed."
+}

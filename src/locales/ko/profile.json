@@ -1,0 +1,15 @@
+{
+  "title": "프로필",
+  "guest": "게스트",
+  "suffix_hello": "님",
+  "edit": "내 프로필 수정",
+  "logout": "로그아웃",
+  "delete": "회원탈퇴",
+  "delete_title": "정말로 탈퇴하시겠어요?",
+  "delete_desc": "저장된 데이터가 영구 삭제됩니다. 이 작업은 되돌릴 수 없습니다.",
+  "delete_confirm": "탈퇴하기",
+  "delete_failed": "탈퇴에 실패했어요. 잠시 후 다시 시도해주세요.",
+  "saved": "프로필이 저장되었습니다.",
+  "save_failed": "저장에 실패했습니다.",
+  "reauth_prompt": "본인 확인을 위해 생체인증을 진행해 주세요."
+}

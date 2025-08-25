@@ -1,0 +1,23 @@
+{
+    "title": "고객지원",
+    "tab": {
+        "tickets": "문의내역",
+        "faq": "FAQ",
+        "terms": "약관"
+    },
+    "btn_new_ticket": "문의하기",
+    "section_my_tickets": "내 문의",
+    "empty_tickets": "등록된 문의가 없습니다. 우측 상단 ‘문의하기’로 새 문의를 남겨주세요.",
+    "support_title": "고객센터 안내",
+    "support_email_label": "문의 이메일",
+    "support_email_value": "support@pass-through.app",
+    "support_hours_label": "운영시간",
+    "support_hours_value": "평일 09:00 ~ 18:00",
+    "faq_title": "FAQ",
+    "faq_q1": "Q. 스크린샷이 안 찍혀요.",
+    "faq_a1": "A. 보안 강화를 위해 앱에서 차단하고 있어요.",
+    "faq_q2": "Q. 공유 링크는 얼마나 유효한가요?",
+    "faq_a2": "A. 기본 30분이며, 생성 시 기간을 줄일 수 있어요.",
+    "terms_title": "이용약관",
+    "terms_body": "본 서비스는 사용자의 개인정보 보호를 최우선으로 하며, 저장·공유 정책은…"
+}

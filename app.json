@@ -9,14 +9,21 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "QR을 스캔하기 위해 카메라 권한이 필요합니다."
+      }
     },
     "android": {
+      "permissions": [
+        "android.permission.CAMERA"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/app/adaptive.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.ansb.pass_through"
     },
     "web": {
       "bundler": "metro",

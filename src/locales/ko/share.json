@@ -1,0 +1,20 @@
+{
+    "title": "공유",
+    "tab_received": "받은공유",
+    "tab_sent": "공유내역",
+    "add": "추가하기",
+    "empty_received_title": "받은 공유가 없어요",
+    "empty_received_desc": "상대방이 보낸 QR/토큰으로 접근하면 목록에 나타납니다.",
+    "empty_sent_title": "공유 내역이 없어요",
+    "empty_sent_desc": "우상단 “추가하기”를 눌러 보낼 항목을 선택해 보세요.",
+    "delete_confirm_title": "삭제 확인",
+    "delete_confirm_desc": "해당 공유를 삭제할까요?",
+    "status_active": "진행중",
+    "status_expired": "만료",
+    "status_revoked": "회수됨",
+    "from_user": "보낸사람: {{name}}",
+    "to_user": "받는사람: {{name}}",
+    "created": "생성: {{time}}",
+    "expires": "만료: {{time}}",
+    "footer_help": "공유는 기본 30분 후 만료돼요. 민감정보는 꼭 만료 시간 내에서만 확인하세요."
+}

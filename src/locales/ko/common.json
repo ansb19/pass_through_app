@@ -1,5 +1,5 @@
 {
-  "app_name": "pass through",
+  "app_name": "패스 스루",
   "app_description": "안전하게, 간편하게 내 소중한 정보를 관리하세요.",
   "login": "로그인",
   "sign_up": "회원가입",
@@ -9,7 +9,11 @@
   "home": "홈",
   "share": "공유",
   "qr": "QR",
-  "support": "고객센터",
-  "profile": "내 정보"
-  
+  "personal_info": "개인정보",
+  "profile": "내 정보",
+  "cancel": "취소",
+  "error": "오류",
+  "loading": "로딩 중...",
+  "agree_and_continue": "동의합니다",
+  "main_title": "패스 스루에 오신 것을 환영합니다"
 }

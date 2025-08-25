@@ -1,0 +1,23 @@
+{
+    "title": "Help & Support",
+    "tab": {
+        "tickets": "My Tickets",
+        "faq": "FAQ",
+        "terms": "Terms"
+    },
+    "btn_new_ticket": "New Ticket",
+    "section_my_tickets": "My Tickets",
+    "empty_tickets": "No tickets yet. Tap “New Ticket” at the top right to create one.",
+    "support_title": "Support Center",
+    "support_email_label": "Support Email",
+    "support_email_value": "support@pass-through.app",
+    "support_hours_label": "Business Hours",
+    "support_hours_value": "Weekdays 09:00 ~ 18:00",
+    "faq_title": "FAQ",
+    "faq_q1": "Q. I can’t take screenshots.",
+    "faq_a1": "A. For security, screenshots are blocked in the app.",
+    "faq_q2": "Q. How long is a share link valid?",
+    "faq_a2": "A. The default is 30 minutes; you can shorten it when creating the link.",
+    "terms_title": "Terms of Service",
+    "terms_body": "We place top priority on protecting your personal information. Storage and sharing policies…"
+}

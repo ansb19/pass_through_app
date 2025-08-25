@@ -3,9 +3,9 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import AppLayout from './_components/AppLayout';
+import LanguageSwitcher from './_components/LanguageSwitcher';
 import { RootStackParamList } from './_layout';
-import AppLayout from './components/AppLayout';
-import LanguageSwitcher from './components/LanguageSwitcher';
 
 
 const { width } = Dimensions.get('window');
@@ -20,7 +20,6 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
   const router = useRouter();
   return (
     <AppLayout
-      showHeader={false}
       showFooter={false}
       headerProps={{
         title: t('app_name'),
@@ -41,7 +40,7 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
           style={{ width: 300, height: 300, marginBottom: 32 }}
         /> */}
         {/* 환영 메시지 */}
-        <Text style={styles.title}>Welcome to pass through</Text>
+        <Text style={styles.title}>{t('main_title')}</Text>
         <Text style={styles.desc}>
           {t('app_description')}
         </Text>

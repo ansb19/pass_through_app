@@ -1,13 +1,18 @@
 {
-    "view_personal": "내 개인정보 조회",
-    "add_personal": "내 개인정보 추가",
-    "share_history": "공유내역 확인",
-    "received_share": "받은 공유",
-    "recent_history": "최근 조회 내역",
-    "qr_scan": "QR 인식",
-    "faq": "자주 하는 질문",
-    "contact": "문의하기",
-    "find_friend": "친구찾기",
-    "add_friend": "친구추가",
-    "my_info": "내 정보 조회"
+    "recent_history": "최근 사용 내역",
+    "more": "더보기 >",
+    "security": {
+        "locked": "잠금 상태",
+        "unlocked": "잠금 해제",
+        "alert_backup_missing": "백업키 미설정",
+        "alert_device_unbound": "기기 미등록"
+    },
+    "expiring_title": "만료 임박 공유",
+    "inbox_title": "받은 공유",
+    "cancel": "취소",
+    "support_entry": "고객지원 (문의 / FAQ / 약관)",
+    "short": {
+        "min": "분",
+        "sec": "초"
+    }
 }

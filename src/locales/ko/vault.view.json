@@ -1,0 +1,16 @@
+{
+    "title": "개인정보 보기",
+    "updated": "업데이트",
+    "reveal": "보기",
+    "hide": "가리기",
+    "auth_prompt": "본인 확인을 위해 생체 인증을 진행해 주세요.",
+    "copied_title": "복사됨",
+    "copied_desc": "클립보드에 복사되었습니다.",
+    "copy_fail": "복사에 실패했습니다.",
+    "field": {
+        "site": "사이트/앱",
+        "username": "아이디",
+        "password": "비밀번호",
+        "note": "메모"
+    }
+}

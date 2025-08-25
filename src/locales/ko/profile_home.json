@@ -1,0 +1,18 @@
+{
+    "title": "프로필",
+    "guest": "게스트",
+    "suffix_hello": "님, 안녕하세요!",
+    "edit": "프로필 수정",
+    "friends": "친구 목록",
+    "logout": "로그아웃",
+    "logout_confirm": "정말 로그아웃 하시겠습니까?",
+    "delete": "회원탈퇴",
+    "qr_title": "내 프로필 QR",
+    "qr_hint": "이 QR에는 닉네임만 포함돼요.",
+    "qr_a11y": "프로필 QR. 내용: {{nickname}}",
+    "reauth_edit_title": "프로필 보안확인",
+    "reauth_delete_title": "탈퇴 보안확인",
+    "pin_modal_title": "보안을 위해 PIN을 입력하세요",
+    "pin_modal_subtitle": "6자리 PIN",
+    "pin_modal_cancel": "취소"
+}

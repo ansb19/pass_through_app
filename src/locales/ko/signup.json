@@ -1,0 +1,11 @@
+{
+    "title": "회원가입",
+    "email_verify_success_title": "이메일 인증",
+    "email_verify_success_body": "이메일 인증이 완료되었습니다.",
+    "email_verify_fail_title": "이메일 인증 실패",
+    "email_verify_fail_body": "다시 시도해 주세요.",
+    "phone_verify_success_title": "휴대폰 인증",
+    "phone_verify_success_body": "휴대폰 인증이 완료되었습니다.",
+    "phone_verify_fail_title": "휴대폰 인증 실패",
+    "phone_verify_fail_body": "다시 시도해 주세요."
+}

@@ -1,0 +1,26 @@
+{
+    "title": "개인정보",
+    "add": "추가",
+    "sort": {
+        "picker_label": "정렬",
+        "sheet_title": "정렬 기준",
+        "recent": {
+            "label": "최근 조회 순",
+            "desc": "최근 본 항목이 위로"
+        },
+        "created": {
+            "label": "생성 순",
+            "desc": "새로 만든 항목이 위로"
+        },
+        "frequent": {
+            "label": "자주 사용 순",
+            "desc": "많이 쓴 항목이 위로"
+        }
+    },
+    "empty": "해당 종류의 항목이 없습니다.",
+    "meta": {
+        "updated": "업데이트",
+        "created": "생성",
+        "used_count": "사용 {{count}}회"
+    }
+}

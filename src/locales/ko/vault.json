@@ -1,0 +1,177 @@
+{
+    "add_title": "개인정보 추가",
+    "type_names": {
+        "account": "계정 정보",
+        "card": "카드 정보",
+        "id": "신분증 정보",
+        "license": "면허/자격 정보",
+        "memo": "보안메모",
+        "device": "내 기기",
+        "photo": "사진 메타",
+        "other": "기타 정보"
+    },
+    "fields": {
+        "account": {
+            "urlOrName": {
+                "label": "사이트/앱 이름 또는 URL",
+                "ph": "예: 우리은행 또는 https://..."
+            },
+            "username": {
+                "label": "아이디",
+                "ph": "예: user@example.com"
+            },
+            "password": {
+                "label": "비밀번호",
+                "ph": "••••••••"
+            },
+            "note": {
+                "label": "계정 메모",
+                "ph": "명의, 2차 인증 여부 등"
+            }
+        },
+        "card": {
+            "number": {
+                "label": "카드번호",
+                "ph": "1234-5678-9012-3456"
+            },
+            "expiry": {
+                "label": "유효기간",
+                "ph": "MM/YY"
+            },
+            "name": {
+                "label": "이름",
+                "ph": "카드 명의자"
+            },
+            "cvc": {
+                "label": "CVC",
+                "ph": "3자리"
+            },
+            "brand": {
+                "label": "카드사",
+                "ph": "예: 현대/신한/국민"
+            },
+            "note": {
+                "label": "카드 메모",
+                "ph": "체크/신용, 혜택, 주 사용 용도 등"
+            }
+        },
+        "id": {
+            "name": {
+                "label": "이름",
+                "ph": "홍길동"
+            },
+            "regNo": {
+                "label": "주민등록번호",
+                "ph": "000000-0000000"
+            },
+            "address": {
+                "label": "주소",
+                "ph": "주소"
+            },
+            "issuedAt": {
+                "label": "발급일",
+                "ph": "YYYY-MM-DD"
+            },
+            "note": {
+                "label": "메모",
+                "ph": "추가 메모"
+            }
+        },
+        "license": {
+            "licenseName": {
+                "label": "자격/면허명",
+                "ph": "예: 운전면허 1종 보통"
+            },
+            "licenseNo": {
+                "label": "면허/자격번호",
+                "ph": "번호"
+            },
+            "issuer": {
+                "label": "발급기관",
+                "ph": "예: 도로교통공단"
+            },
+            "issuedAt": {
+                "label": "발급일",
+                "ph": "YYYY-MM-DD"
+            },
+            "expiresAt": {
+                "label": "만료일(선택)",
+                "ph": "YYYY-MM-DD"
+            },
+            "note": {
+                "label": "메모",
+                "ph": "비고/특이사항"
+            }
+        },
+        "memo": {
+            "title": {
+                "label": "제목",
+                "ph": "예: 인터넷 뱅킹 보안메모"
+            },
+            "body": {
+                "label": "내용",
+                "ph": "내용을 입력하세요"
+            }
+        },
+        "device": {
+            "model": {
+                "label": "모델명",
+                "ph": "예: iPhone 15 Pro"
+            },
+            "serial": {
+                "label": "시리얼 번호",
+                "ph": "시리얼"
+            },
+            "purchasedAt": {
+                "label": "구입 시기",
+                "ph": "YYYY-MM-DD"
+            },
+            "warrantyUntil": {
+                "label": "AS 만료일",
+                "ph": "YYYY-MM-DD"
+            },
+            "note": {
+                "label": "기기 메모",
+                "ph": "특이사항"
+            }
+        },
+        "photo": {
+            "title": {
+                "label": "사진명",
+                "ph": "예: 여권 스캔본"
+            },
+            "file": {
+                "label": "파일",
+                "ph": "파일을 선택하세요"
+            },
+            "note": {
+                "label": "메모(선택)",
+                "ph": "촬영/스캔 관련 메모"
+            }
+        },
+        "other": {
+            "title": {
+                "label": "항목명",
+                "ph": "예: 시리얼/쿠폰 등"
+            },
+            "content": {
+                "label": "내용",
+                "ph": "내용을 입력하세요"
+            }
+        }
+    },
+    "helpers": {
+        "regNo": "※ 실제 주민등록번호 저장은 권장하지 않아요. 꼭 필요 시 안전하게 관리하세요.",
+        "file": "민감한 사진 업로드는 권장하지 않습니다. 꼭 필요할 때만 사용하세요. (차후 파일 업로드 연동)"
+    },
+    "actions": {
+        "save": "저장",
+        "saving": "저장중…"
+    },
+    "alerts": {
+        "saved_title": "저장됨",
+        "saved_body": "개인정보가 추가되었습니다.",
+        "fail_title": "실패",
+        "fail_body": "저장에 실패했습니다."
+    }
+}

@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import AppLayout from '../components/AppLayout';
+import AppLayout from '../_components/AppLayout';
 
 
 const { width } = Dimensions.get('window');
@@ -13,16 +13,15 @@ export default function ChangeInfoScreen() {
 
   return (
     <AppLayout
-      showHeader={true}
       showFooter={false}
       headerProps={{
         title: t('change_info'),
-        showBack: true,
+        
         onBackPress: () => router.back(),
       }}
     >
       <View style={styles.container}>
-        {/* 내 기기 찾기 */}
+        {/* 내 기기 변경 */}
         <TouchableOpacity
           style={styles.mainBtn}
           onPress={() => router.push('./change_info/change_device')}
@@ -30,7 +29,7 @@ export default function ChangeInfoScreen() {
           <Text style={styles.mainBtnText}>{t('change_device')}</Text>
         </TouchableOpacity>
 
-        {/* PIN 번호 찾기 */}
+        {/* PIN 번호 변경 */}
         <TouchableOpacity
           style={styles.mainBtn}
           onPress={() => router.push('./change_info/change_pin')}

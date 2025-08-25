@@ -1,0 +1,30 @@
+{
+    "title": "문의하기",
+    "category_label": "카테고리",
+    "category": {
+        "general": "일반",
+        "account": "계정",
+        "security": "보안",
+        "share": "공유"
+    },
+    "title_label": "제목",
+    "title_ph": "예) 공유 링크가 열리지 않습니다",
+    "body_label": "내용",
+    "body_ph": "상세 증상, 발생 시각, 사용 기기/OS/앱버전 등을 적어주세요.",
+    "contact_label": "연락처 (선택)",
+    "contact_ph": "이메일 또는 전화번호",
+    "attachment_label": "첨부 파일 (선택)",
+    "file_select": "파일 선택",
+    "file_delete": "삭제",
+    "submit": "문의 보내기",
+    "submitting": "전송 중...",
+    "err_title_min": "제목은 5자 이상 입력해주세요.",
+    "err_body_min": "내용은 10자 이상 입력해주세요.",
+    "attach_fail_title": "첨부 실패",
+    "attach_fail_desc": "파일을 선택하는 중 문제가 발생했습니다.",
+    "submit_success_title": "접수 완료",
+    "submit_success_desc": "문의가 접수되었습니다.",
+    "ok": "확인",
+    "error_title": "오류",
+    "submit_fail_desc": "문의 접수에 실패했습니다."
+}

@@ -1,0 +1,21 @@
+{
+    "label_nickname": "닉네임",
+    "label_birth": "생년월일",
+    "label_email": "이메일",
+    "label_phone": "휴대폰",
+    "ph_nickname": "닉네임을 입력하세요",
+    "ph_birth": "ex) 19970710",
+    "ph_email": "example@email.com",
+    "ph_phone": "010xxxxxxxx",
+    "btn_verify": "인증",
+    "btn_change": "변경",
+    "btn_next": "다음",
+    "btn_save": "저장",
+    "verified": "인증완료",
+    "warn_reverify": "재인증이 필요합니다.",
+    "err_nickname": "특수문자 제외, 1~20자 이내",
+    "err_birth": "숫자 8자리(YYYYMMDD)여야 합니다.",
+    "err_email": "이메일 형식이 아닙니다.",
+    "err_phone": "국내번호 형식이 아닙니다. (예: 010XXXXXXXX)",
+    "readonly_hint": "인증완료 항목은 잠금되어 있습니다."
+}

@@ -1,8 +1,18 @@
 {
-  "scan_title": "Scan QR",
-  "camera_permission_title": "Camera permission required",
-  "camera_permission_msg": "We need access to your camera to scan QR codes.",
+  "title": "Scan QR",
+  "camera_permission_needed_title": "Camera Permission Required",
+  "camera_permission_needed_desc": "You need to allow camera access to scan QR codes.",
+  "request_permission": "Request Permission",
+  "permission_alert_title": "Camera Permission Needed",
+  "permission_alert_desc": "Please allow camera access in Settings.",
   "open_settings": "Open Settings",
-  "scanning": "Scanning…",
-  "invalid_qr": "Invalid or expired QR."
+  "scan_hint": "Align the QR within the guide box",
+  "status_scanning": "Scanning",
+  "status_paused": "Paused",
+  "pause": "Pause",
+  "resume": "Resume Scan",
+  "torch_on": "Turn On Flash",
+  "torch_off": "Turn Off Flash",
+  "scan_failed_title": "Scan Failed",
+  "scan_failed_desc": "This QR code is invalid."
 }

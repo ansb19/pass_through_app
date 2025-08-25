@@ -1,0 +1,26 @@
+{
+    "title": "Vault",
+    "add": "Add",
+    "sort": {
+        "picker_label": "Sort",
+        "sheet_title": "Sort by",
+        "recent": {
+            "label": "Recently viewed",
+            "desc": "Most recently opened first"
+        },
+        "created": {
+            "label": "Created date",
+            "desc": "Newest items first"
+        },
+        "frequent": {
+            "label": "Most used",
+            "desc": "Higher usage first"
+        }
+    },
+    "empty": "No items for this category.",
+    "meta": {
+        "updated": "Updated",
+        "created": "Created",
+        "used_count": "Used {{count}} times"
+    }
+}

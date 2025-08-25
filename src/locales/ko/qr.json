@@ -1,8 +1,18 @@
 {
-  "scan_title": "QR 인식",
-  "camera_permission_title": "카메라 권한 필요",
-  "camera_permission_msg": "QR 인식을 위해 카메라 접근이 필요합니다.",
+  "title": "QR 스캔",
+  "camera_permission_needed_title": "카메라 권한 필요",
+  "camera_permission_needed_desc": "QR을 스캔하려면 카메라 접근을 허용해야 해요.",
+  "request_permission": "권한 요청",
+  "permission_alert_title": "카메라 권한이 필요합니다",
+  "permission_alert_desc": "설정에서 카메라 권한을 허용해 주세요.",
   "open_settings": "설정 열기",
-  "scanning": "인식 중…",
-  "invalid_qr": "유효하지 않거나 만료된 QR입니다."
+  "scan_hint": "가이드 박스에 QR을 맞춰주세요",
+  "status_scanning": "스캔 중",
+  "status_paused": "일시정지",
+  "pause": "일시정지",
+  "resume": "스캔 재개",
+  "torch_on": "손전등 켜기",
+  "torch_off": "손전등 끄기",
+  "scan_failed_title": "인식 실패",
+  "scan_failed_desc": "유효하지 않은 QR 입니다."
 }

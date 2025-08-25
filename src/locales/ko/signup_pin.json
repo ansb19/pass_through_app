@@ -1,0 +1,21 @@
+{
+  "title": "PIN 설정",
+  "name_suffix": "님",
+  "email_verified_label": "이메일 확인됨",
+  "phone_verified_label": "휴대폰 확인됨",
+  "birth_date_label": "생년월일",
+  "enter_title_1": "PIN 번호 6자리를 입력해주세요",
+  "enter_title_2": "다시 한 번 PIN 번호를 입력해주세요",
+  "enter_sub_1": "숫자 키패드는 매번 섞여 표시됩니다\n(생년월일·연속 3자리 숫자 사용 불가)",
+  "enter_sub_2": "동일한 PIN 번호를 입력해야 합니다\n(생년월일·연속 3자리 숫자 사용 불가)",
+  "policy_title": "PIN 보안 정책",
+  "policy_birth_yyMMdd": "생년월일(YYMMDD)이 포함된 PIN은 사용할 수 없습니다.",
+  "policy_birth_mmdd": "생년월일(MMDD)이 포함된 PIN은 사용할 수 없습니다.",
+  "policy_repeated": "같은 숫자가 3회 이상 연속되는 PIN은 사용할 수 없습니다.",
+  "policy_sequence": "연속된 숫자(오름/내림) 3자리가 포함된 PIN은 사용할 수 없습니다.",
+  "mismatch_title": "PIN 불일치",
+  "mismatch_body": "입력하신 두 PIN 번호가 다릅니다. 다시 시도해주세요.",
+  "done_title": "회원가입 완료",
+  "done_body": "회원가입을 축하드립니다. \n입력하신 PIN 번호는 안전하게 저장되었습니다.",
+  "ok": "확인"
+}

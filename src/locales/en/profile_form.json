@@ -1,0 +1,21 @@
+{
+    "label_nickname": "Nickname",
+    "label_birth": "Date of Birth",
+    "label_email": "Email",
+    "label_phone": "Phone Number",
+    "ph_nickname": "Enter your nickname",
+    "ph_birth": "ex) 19970710",
+    "ph_email": "example@email.com",
+    "ph_phone": "010xxxxxxxx",
+    "btn_verify": "Verify",
+    "btn_change": "Change",
+    "btn_next": "Next",
+    "btn_save": "Save",
+    "verified": "Verified",
+    "warn_reverify": "Re-verification is required.",
+    "err_nickname": "Exclude special characters, must be within 1–20 characters.",
+    "err_birth": "Must be 8 digits (YYYYMMDD).",
+    "err_email": "Invalid email format.",
+    "err_phone": "Invalid phone number format. (ex: 010XXXXXXXX)",
+    "readonly_hint": "Verified fields are locked."
+}

@@ -1,0 +1,11 @@
+{
+    "title": "Sign Up",
+    "email_verify_success_title": "Email Verification",
+    "email_verify_success_body": "Your email has been verified.",
+    "email_verify_fail_title": "Email Verification Failed",
+    "email_verify_fail_body": "Please try again.",
+    "phone_verify_success_title": "Phone Verification",
+    "phone_verify_success_body": "Your phone number has been verified.",
+    "phone_verify_fail_title": "Phone Verification Failed",
+    "phone_verify_fail_body": "Please try again."
+}

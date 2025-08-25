@@ -1,0 +1,9 @@
+{
+  "title_default": "보안 확인",
+  "helper": "보안을 위해 PIN 입력 후 생체 인증을 진행합니다.",
+  "pin_title": "PIN 번호 6자리를 입력해주세요",
+  "pin_subtitle": "입력 후 자동으로 진행됩니다",
+  "pin_invalid_title": "인증 실패",
+  "pin_invalid_msg": "PIN 번호가 올바르지 않습니다.",
+  "biometric_prompt": "본인 확인을 위해 생체 인증을 진행해 주세요."
+}

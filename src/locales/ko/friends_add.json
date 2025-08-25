@@ -1,0 +1,11 @@
+{
+    "title": "친구 추가",
+    "qr_add": "QR 코드 스캔으로 추가",
+    "label_code": "초대 코드 또는 아이디",
+    "placeholder_code": "친구 코드 입력",
+    "add": "추가",
+    "alert_empty_title": "알림",
+    "alert_empty_message": "초대 코드 또는 아이디를 입력해주세요.",
+    "alert_success_title": "성공",
+    "alert_success_message": "{{code}} 님에게 친구 요청을 보냈습니다."
+}

@@ -1,0 +1,27 @@
+{
+    "title": "Ticket Details",
+    "not_found": "We couldn't find that ticket.",
+    "btn_add_followup": "Follow-up",
+    "meta_last_update": "Last updated",
+    "section_timeline": "Timeline",
+    "section_messages": "Conversation",
+    "section_help_more": "Need more help?",
+    "help_more_desc": "Tap the “Follow-up” button above to continue this ticket.",
+    "role": {
+        "me": "Me",
+        "agent": "Support"
+    },
+    "status": {
+        "received": "Received",
+        "in_progress": "In progress",
+        "answered": "Answered",
+        "closed": "Closed"
+    },
+    "timeline": {
+        "received": "Received",
+        "assigned": "Assigned",
+        "in_progress": "In progress",
+        "answered": "Answered",
+        "closed": "Closed"
+    }
+}

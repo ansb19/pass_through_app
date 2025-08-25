@@ -1,0 +1,11 @@
+{
+    "title": "Add Friend",
+    "qr_add": "Add via QR Code Scan",
+    "label_code": "Invite Code or ID",
+    "placeholder_code": "Enter friend code",
+    "add": "Add",
+    "alert_empty_title": "Notice",
+    "alert_empty_message": "Please enter an invite code or ID.",
+    "alert_success_title": "Success",
+    "alert_success_message": "Friend request has been sent to {{code}}."
+}

@@ -1,0 +1,21 @@
+{
+    "title": "Set PIN",
+    "name_suffix": "",
+    "email_verified_label": "Email verified",
+    "phone_verified_label": "Phone verified",
+    "birth_date_label": "Birth date",
+    "enter_title_1": "Enter a 6-digit PIN",
+    "enter_title_2": "Re-enter the PIN",
+    "enter_sub_1": "The keypad is shuffled each time.\n(Birth date or 3+ sequential digits are not allowed.)",
+    "enter_sub_2": "Please enter the same PIN again.\n(Birth date or 3+ sequential digits are not allowed.)",
+    "policy_title": "PIN Policy",
+    "policy_birth_yyMMdd": "Your birth date (YYMMDD) cannot be part of the PIN.",
+    "policy_birth_mmdd": "Your birth date (MMDD) cannot be part of the PIN.",
+    "policy_repeated": "Three or more identical digits in a row are not allowed.",
+    "policy_sequence": "Three ascending or descending sequential digits are not allowed.",
+    "mismatch_title": "PIN Mismatch",
+    "mismatch_body": "The two PIN entries do not match. Please try again.",
+    "done_title": "Sign-up Complete",
+    "done_body": "Welcome! Your PIN has been saved securely.",
+    "ok": "OK"
+}

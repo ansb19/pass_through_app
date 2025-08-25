@@ -1,0 +1,7 @@
+{
+    "title": "Friends",
+    "btn_add": "Add Friend",
+    "empty": "No friends yet. Tap “Add” at the top right.",
+    "a11y_add": "Add friend",
+    "a11y_detail": "View details for {{name}}"
+}

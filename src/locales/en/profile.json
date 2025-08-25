@@ -1,0 +1,15 @@
+{
+    "title": "Profile",
+    "guest": "Guest",
+    "suffix_hello": "",
+    "logout": "Log Out",
+    "delete": "Delete Account",
+    "delete_title": "Are you sure you want to delete your account?",
+    "delete_desc": "All saved data will be permanently deleted. This action cannot be undone.",
+    "delete_confirm": "Delete",
+    "delete_failed": "Failed to delete account. Please try again later.",
+    "edit": "Edit Profile",
+    "saved": "Profile has been saved.",
+    "save_failed": "Failed to save profile.",
+    "reauth_prompt": "Please complete biometric authentication to verify your identity."
+}

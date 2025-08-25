@@ -1,0 +1,15 @@
+{
+    "title": "회원탈퇴",
+    "confirm_title": "정말로 회원탈퇴하시겠습니까?",
+    "confirm_desc": "탈퇴를 진행하려면 닉네임을 정확히 입력해주세요.",
+    "warn_text": "탈퇴가 접수되면 {{days}}일 후 계정이 영구 삭제되며 복구할 수 없습니다.",
+    "label_nickname": "닉네임 확인",
+    "ph_nickname": "{{nickname}}",
+    "btn_cancel": "취소",
+    "btn_delete": "탈퇴 진행",
+    "alert_mismatch_title": "확인 필요",
+    "alert_mismatch_desc": "닉네임이 일치하지 않습니다.",
+    "alert_done_title": "탈퇴 접수 완료",
+    "alert_done_desc": "{{days}}일 후 계정이 영구 삭제되며 복구할 수 없습니다.",
+    "ok": "확인"
+}

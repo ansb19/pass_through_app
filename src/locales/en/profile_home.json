@@ -1,0 +1,18 @@
+{
+    "title": "Profile",
+    "guest": "Guest",
+    "suffix_hello": ", welcome!",
+    "edit": "Edit Profile",
+    "friends": "Friends",
+    "logout": "Log Out",
+    "logout_confirm": "Are you sure you want to log out?",
+    "delete": "Delete Account",
+    "qr_title": "My Profile QR",
+    "qr_hint": "This QR includes only your nickname.",
+    "qr_a11y": "Profile QR. Content: {{nickname}}",
+    "reauth_edit_title": "Profile Re-Authentication",
+    "reauth_delete_title": "Deletion Re-Authentication",
+    "pin_modal_title": "Enter your PIN for security",
+    "pin_modal_subtitle": "6-digit PIN",
+    "pin_modal_cancel": "Cancel"
+}
