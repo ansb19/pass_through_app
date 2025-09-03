@@ -23,6 +23,7 @@ type Props = {
     fakePress?: boolean;  // 기본 true
     onComplete: (pin: string) => void | Promise<void>;
     style?: object;
+    disabled?: boolean;  // ✅ 추가: 비활성화 옵션
 };
 
 export default function PasscodePad({
@@ -33,6 +34,7 @@ export default function PasscodePad({
     fakePress = true,
     onComplete,
     style,
+    disabled = false,  // ✅ 추가: 비활성화 옵션
 }: Props) {
     const [pin, setPin] = useState("");
     const [digits, setDigits] = useState<number[]>([]);
@@ -77,6 +79,8 @@ export default function PasscodePad({
     };
 
     const handleDigitPress = (digit: number) => {
+        if (disabled) return;  // ✅ 비활성화 상태면 무시
+        
         if (pin.length >= pinLength) return;
         Haptics.selectionAsync().catch(() => { });
         let flashes = [digit];

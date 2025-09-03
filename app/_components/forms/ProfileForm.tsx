@@ -2,14 +2,15 @@
 import { isBirthValid, isEmailValid, isNicknameValid, isPhoneValid, sanitizeDigits, sanitizeNickname } from '@/src/core/utils/validation';
 import { useTranslation } from 'react-i18next';
 import {
-    Keyboard,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    TouchableWithoutFeedback,
-    View,
-    ViewStyle,
+  Alert,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
@@ -25,9 +26,9 @@ type Props = {
   showVerifyButtons?: boolean;
   style?: ViewStyle;
   // 🔽 새 콜백들 (인라인 OTP용)
-  onSendEmailOtp?: (email: string) => Promise<{ ttl: number }>;
+  onSendEmailOtp?: (email: string) => Promise<{ ttl: number } | null>;
   onVerifyEmailOtp?: (email: string, code: string) => Promise<boolean>;
-  onSendPhoneOtp?: (phone: string) => Promise<{ ttl: number }>;
+  onSendPhoneOtp?: (phone: string) => Promise<{ ttl: number } | null>;
   onVerifyPhoneOtp?: (phone: string, code: string) => Promise<boolean>;
 
   emailVerified?: boolean;
@@ -40,6 +41,7 @@ type Props = {
   submitLabel?: string;
   onSubmit: (values: ProfileFormValues, meta: { nicknameValid: boolean; birthValid: boolean; emailValid: boolean; phoneValid: boolean }) => void;
   onChange?: (values: ProfileFormValues, meta: { nicknameValid: boolean; birthValid: boolean; emailValid: boolean; phoneValid: boolean; allValid: boolean }) => void;
+  onCheckNickname?: (nickname: string) => Promise<boolean>;
 };
 
 export default function ProfileForm(props: Props) {
@@ -63,6 +65,7 @@ export default function ProfileForm(props: Props) {
     onInvalidatePhone,
     onSubmit,
     onChange,
+    onCheckNickname,
   } = props;
 
   const { t } = useTranslation('profile_form');
@@ -74,6 +77,7 @@ export default function ProfileForm(props: Props) {
     phone: fields?.phone ?? true,
   };
 
+
   const [nickname, setNickname] = useState(initial.nickname ?? '');
   const [birthDate, setBirthDate] = useState(initial.birthDate ?? '');
   const [email, setEmail] = useState(initial.email ?? '');
@@ -83,6 +87,11 @@ export default function ProfileForm(props: Props) {
   const [emailEverVerified, setEmailEverVerified] = useState(emailVerified);
   const [phoneEverVerified, setPhoneEverVerified] = useState(phoneVerified);
 
+  const [sendingEmail, setSendingEmail] = useState(false);
+  const [sendingPhone, setSendingPhone] = useState(false);
+
+  const [emailCooldown, setEmailCooldown] = useState(false);
+  const [phoneCooldown, setPhoneCooldown] = useState(false);
   // ✅ 인라인 OTP 상태
   const [showEmailOtp, setShowEmailOtp] = useState(false);
   const [emailCode, setEmailCode] = useState('');
@@ -144,14 +153,16 @@ export default function ProfileForm(props: Props) {
     if (initial.phone !== undefined) setPhone(initial.phone);
   }, [initial.nickname, initial.birthDate, initial.email, initial.phone]);
 
+  const [nicknameChecked, setNicknameChecked] = useState(false);
+
   // 유효성
   const nicknameValid = useMemo(() => (!show.nickname ? true : isNicknameValid(nickname)), [show.nickname, nickname]);
-  const birthValid    = useMemo(() => (!show.birthDate ? true : isBirthValid(birthDate)), [show.birthDate, birthDate]);
-  const emailValid    = useMemo(() => (!show.email ? true : (!!email && isEmailValid(email))), [show.email, email]);
-  const phoneValid    = useMemo(() => (!show.phone ? true : (!!phone && isPhoneValid(phone))), [show.phone, phone]);
+  const birthValid = useMemo(() => (!show.birthDate ? true : isBirthValid(birthDate)), [show.birthDate, birthDate]);
+  const emailValid = useMemo(() => (!show.email ? true : (!!email && isEmailValid(email))), [show.email, email]);
+  const phoneValid = useMemo(() => (!show.phone ? true : (!!phone && isPhoneValid(phone))), [show.phone, phone]);
 
   const baseValid = nicknameValid && birthValid && emailValid && phoneValid;
-  const allValid  = baseValid && (!showVerifyButtons || (emailVerified && phoneVerified));
+  const allValid = baseValid && (!showVerifyButtons || (emailVerified && phoneVerified));
 
   // 상위로 변화 알림
   useEffect(() => {
@@ -164,62 +175,140 @@ export default function ProfileForm(props: Props) {
 
   // 제출
   const handleSubmit = () => {
+
     if (!allValid) return;
     onSubmit({ nickname, birthDate, email, phone }, { nicknameValid, birthValid, emailValid, phoneValid });
   };
 
+  const handleNicknameChange = (v: string) => {
+    setNickname(sanitizeNickname(v));
+    setNicknameChecked(false); // 값 바뀌면 다시 중복체크 필요
+  };
   // ===== 이메일 OTP 흐름 =====
   const handleClickEmailVerify = async () => {
     if (!onSendEmailOtp || !emailValid) return;
+    if (sendingEmail) return;
+
+    setSendingEmail(true);
     try {
-      const { ttl } = await onSendEmailOtp(email);
-      setShowEmailOtp(true);
+      const { ttl } = await onSendEmailOtp(email) ?? {};
+      if (!ttl) return;
+      setShowEmailOtp(true);   // ✅ OTP 단계 진입
       setEmailCode('');
       startEmailTimer(ttl ?? 180);
     } catch (e) {
-      // 상위에서 Alert 처리 가능. 여기서는 조용히 실패
+      Alert.alert(
+        t('otp:send_fail_title', '인증코드 전송 실패'),
+        t('otp:send_fail_body', '네트워크 상태를 확인하고 다시 시도해주세요.')
+      );
+    } finally {
+      setSendingEmail(false);  // ✅ 로딩만 끝내고, showEmailOtp 유지
     }
   };
 
   const handleConfirmEmailCode = async () => {
     if (!onVerifyEmailOtp || !showEmailOtp || emailLeft === 0) return;
     const ok = await onVerifyEmailOtp(email, emailCode);
-    if (ok) { setShowEmailOtp(false); clearEmailTimer(); }
+    if (!ok) {
+      Alert.alert(
+        t('otp:verify_fail_title', '인증 실패'),
+        t('otp:verify_fail_body', '코드가 올바르지 않거나 시간이 만료되었습니다. 다시 시도해주세요.')
+      );
+      return;
+    }
+    setShowEmailOtp(false);
+    clearEmailTimer();
   };
 
   const handleResendEmailCode = async () => {
+    if (emailCooldown) {
+      Alert.alert(
+        t('otp:cooldown_title', '잠시 후 다시 시도해주세요'),
+        t('otp:cooldown_body', '인증코드는 30초마다 재전송할 수 있습니다.')
+      );
+      return;
+    }
     if (!onSendEmailOtp || !emailValid) return;
     try {
-      const { ttl } = await onSendEmailOtp(email);
+      setEmailCooldown(true);
+      const result = await onSendEmailOtp(email);
+      if (!result) return; // null이면 중단
+      const { ttl } = result;
+
+
       setEmailCode('');
       startEmailTimer(ttl ?? 180);
-    } catch (e) {}
+      setTimeout(() => setEmailCooldown(false), 30_000);
+    } catch (e) {
+      setEmailCooldown(false);
+      Alert.alert(
+        t('otp:send_fail_title', '인증코드 전송 실패'),
+        t('otp:send_fail_body', '네트워크 상태를 확인하고 다시 시도해주세요.')
+      );
+    }
   };
 
   // ===== 휴대폰 OTP 흐름 =====
   const handleClickPhoneVerify = async () => {
     if (!onSendPhoneOtp || !phoneValid) return;
+    if (sendingPhone) return;
+    setSendingPhone(true);
+
     try {
-      const { ttl } = await onSendPhoneOtp(phone);
+
+      const { ttl } = await onSendPhoneOtp(phone) ?? {};
+      if (!ttl) return;
       setShowPhoneOtp(true);
       setPhoneCode('');
       startPhoneTimer(ttl ?? 180);
-    } catch (e) {}
+    } catch (e) {
+      Alert.alert(
+        t('otp:send_fail_title', '인증코드 전송 실패'),
+        t('otp:send_fail_body', '네트워크 상태를 확인하고 다시 시도해주세요.')
+      );
+    } finally {
+      setSendingPhone(false);
+    }
   };
 
   const handleConfirmPhoneCode = async () => {
     if (!onVerifyPhoneOtp || !showPhoneOtp || phoneLeft === 0) return;
     const ok = await onVerifyPhoneOtp(phone, phoneCode);
-    if (ok) { setShowPhoneOtp(false); clearPhoneTimer(); }
+    if (!ok) {
+      Alert.alert(
+        t('otp:verify_fail_title', '인증 실패'),
+        t('otp:verify_fail_body', '코드가 올바르지 않거나 시간이 만료되었습니다. 다시 시도해주세요.')
+      );
+      return;
+    }
+    setShowPhoneOtp(false);
+    clearPhoneTimer();
   };
 
   const handleResendPhoneCode = async () => {
+    if (phoneCooldown) {
+      Alert.alert(
+        t('otp:cooldown_title', '잠시 후 다시 시도해주세요'),
+        t('otp:cooldown_body', '인증코드는 30초마다 재전송할 수 있습니다.')
+      );
+      return;
+    }
     if (!onSendPhoneOtp || !phoneValid) return;
     try {
-      const { ttl } = await onSendPhoneOtp(phone);
+      setPhoneCooldown(true);
+      const result = await onSendPhoneOtp(phone);
+      if (!result) return; // null이면 중단
+      const { ttl } = result;
       setPhoneCode('');
       startPhoneTimer(ttl ?? 180);
-    } catch (e) {}
+      setTimeout(() => setPhoneCooldown(false), 30_000);
+    } catch (e) {
+      setPhoneCooldown(false);
+      Alert.alert(
+        t('otp:send_fail_title', '인증코드 전송 실패'),
+        t('otp:send_fail_body', '네트워크 상태를 확인하고 다시 시도해주세요.')
+      );
+    }
   };
 
   // 포커스 제어
@@ -245,10 +334,18 @@ export default function ProfileForm(props: Props) {
             <>
               <Text style={s.label}>{t('label_nickname')}</Text>
               <TextInput
-                style={[s.input, !nicknameValid && s.inputError]}
+                style={[s.input,
+                !nicknameValid && s.inputError,
+                nicknameValid && nicknameChecked && s.inputSuccess]}
                 placeholder={t('ph_nickname')}
                 value={nickname}
-                onChangeText={(v) => setNickname(sanitizeNickname(v))}
+                onChangeText={handleNicknameChange}
+                onBlur={async () => {
+                  if (nicknameValid && props.onCheckNickname) {
+                    const result = await props.onCheckNickname(nickname);
+                    setNicknameChecked(result); // 중복 아님일 때만 true
+                  }
+                }}
                 autoCapitalize="none"
                 autoCorrect={false}
                 returnKeyType={show.birthDate ? 'next' : show.email ? 'next' : show.phone ? 'next' : 'done'}
@@ -270,7 +367,7 @@ export default function ProfileForm(props: Props) {
               <Text style={s.label}>{t('label_birth')}</Text>
               <TextInput
                 ref={birthRef}
-                style={[ s.input, !birthValid && s.inputError, readOnlyFields?.birthDate && s.inputReadonly ]}
+                style={[s.input, !birthValid && s.inputError, readOnlyFields?.birthDate && s.inputReadonly, birthValid && birthDate.length === 8 && s.inputSuccess]}
                 placeholder={t('ph_birth')}
                 value={birthDate}
                 editable={!readOnlyFields?.birthDate}
@@ -293,7 +390,10 @@ export default function ProfileForm(props: Props) {
               <View style={s.row}>
                 <TextInput
                   ref={emailRef}
-                  style={[ s.input, { flex: 1 }, email.length > 0 && !emailValid && s.inputError ]}
+                  style={[s.input, { flex: 1 },
+                  email.length > 0 && !emailValid && s.inputError,
+                  emailVerified && s.inputSuccess
+                  ]}
                   placeholder={t('ph_email')}
                   keyboardType="email-address"
                   value={email}
@@ -316,13 +416,15 @@ export default function ProfileForm(props: Props) {
                         </TouchableOpacity>
                       )}
                     </View>
-                  ) : (
+                  ) : showEmailOtp ? null : (   // ✅ OTP 단계라면 버튼은 숨김
                     <TouchableOpacity
-                      style={[s.button, !emailValid && { opacity: 0.5 }]}
-                      disabled={!emailValid}
+                      style={[s.button, (!emailValid || sendingEmail) && { opacity: 0.5 }]}
+                      disabled={!emailValid || sendingEmail}
                       onPress={handleClickEmailVerify}
                     >
-                      <Text style={s.buttonText}>{t('btn_verify')}</Text>
+                      <Text style={s.buttonText}>
+                        {sendingEmail ? t('btn_sending') : t('btn_verify')}
+                      </Text>
                     </TouchableOpacity>
                   )
                 )}
@@ -340,13 +442,17 @@ export default function ProfileForm(props: Props) {
                     maxLength={6}
                     style={[s.input, { flex: 1 }]}
                   />
-                  <TouchableOpacity style={s.button} onPress={handleConfirmEmailCode} disabled={emailLeft === 0 || emailCode.length < 6}>
+                  <TouchableOpacity
+                    style={s.button}
+                    onPress={handleConfirmEmailCode}
+                    disabled={emailLeft === 0 || emailCode.length < 6}
+                  >
                     <Text style={s.buttonText}>{t('btn_confirm')}</Text>
                   </TouchableOpacity>
                   <View style={s.otpFooter}>
                     <Text style={s.timer}>{t('time_left', { defaultValue: '남은시간' })}: {emailLeft}s</Text>
-                    <TouchableOpacity onPress={handleResendEmailCode} disabled={emailLeft > 0}>
-                      <Text style={[s.resend, emailLeft > 0 && { opacity: 0.4 }]}>{t('btn_resend')}</Text>
+                    <TouchableOpacity onPress={handleResendEmailCode}>
+                      <Text style={s.resend}>{t('btn_resend')}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -361,7 +467,10 @@ export default function ProfileForm(props: Props) {
               <View style={s.row}>
                 <TextInput
                   ref={phoneRef}
-                  style={[ s.input, { flex: 1 }, phone.length > 0 && !phoneValid && s.inputError ]}
+                  style={[s.input, { flex: 1 },
+                  phone.length > 0 && !phoneValid && s.inputError,
+                  phoneVerified && s.inputSuccess
+                  ]}
                   placeholder={t('ph_phone')}
                   keyboardType="phone-pad"
                   value={phone}
@@ -382,13 +491,15 @@ export default function ProfileForm(props: Props) {
                         </TouchableOpacity>
                       )}
                     </View>
-                  ) : (
+                  ) : showPhoneOtp ? null : (
                     <TouchableOpacity
-                      style={[s.button, !phoneValid && { opacity: 0.5 }]}
-                      disabled={!phoneValid}
+                      disabled={!phoneValid || sendingPhone}
+                      style={[s.button, (!phoneValid || sendingPhone) && { opacity: 0.5 }]}
                       onPress={handleClickPhoneVerify}
                     >
-                      <Text style={s.buttonText}>{t('btn_verify')}</Text>
+                      <Text style={s.buttonText}>
+                        {sendingPhone ? t('btn_sending') : t('btn_verify')}
+                      </Text>
                     </TouchableOpacity>
                   )
                 )}
@@ -411,8 +522,8 @@ export default function ProfileForm(props: Props) {
                   </TouchableOpacity>
                   <View style={s.otpFooter}>
                     <Text style={s.timer}>{t('time_left', { defaultValue: '남은시간' })}: {phoneLeft}s</Text>
-                    <TouchableOpacity onPress={handleResendPhoneCode} disabled={phoneLeft > 0}>
-                      <Text style={[s.resend, phoneLeft > 0 && { opacity: 0.4 }]}>{t('btn_resend')}</Text>
+                    <TouchableOpacity onPress={handleResendPhoneCode} >
+                      <Text style={s.resend}>{t('btn_resend')}</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -435,6 +546,7 @@ const s = StyleSheet.create({
   container: { paddingTop: 4 },
   label: { fontSize: 15, color: '#374151', marginBottom: 6, marginTop: 16, fontWeight: '600' },
   input: { backgroundColor: '#fff', borderColor: '#d1d5db', borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 10, fontSize: 15, lineHeight: 22, textAlignVertical: 'center' },
+  inputSuccess: { borderColor: '#10b981' },
   inputError: { borderColor: '#ef4444' },
   row: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   button: { backgroundColor: '#3b82f6', paddingHorizontal: 14, paddingVertical: 10, borderRadius: 8 },

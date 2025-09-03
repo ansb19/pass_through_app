@@ -1,6 +1,6 @@
 import { ENV } from '@core/config/env';
 import { Secure } from '@core/storage/secureStore';
-import { getAppVersion, getDeviceId, getDeviceInfo } from '@core/utils/device';
+import { getAppVersion, getDeviceInfo } from '@core/utils/device';
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { AppError, toApiError } from './errors';
 
@@ -9,10 +9,17 @@ let isRefreshing = false;
 let pending: Array<(token: string | null) => void> = [];
 
 async function refreshToken(): Promise<string | null> {
-    const refresh = await Secure.get('REFRESH_TOKEN');
-    if (!refresh) return null;
+    const [refresh, userId] = await Promise.all([
+        Secure.get('REFRESH_TOKEN'),
+        Secure.get('USER_ID'),
+    ]);
+    if (!refresh || !userId) return null;
+
     try {
-        const res = await axios.post(`${ENV.API_BASE_URL}/auth/refresh`, { refresh });
+        const res = await axios.post(`${ENV.API_BASE_URL}/auth/refresh`, {
+            user_id: userId,
+            refreshToken: refresh,
+        });
         const newToken = res.data?.accessToken as string | undefined;
         if (newToken) await Secure.set('SESSION_ID', newToken);
         return newToken ?? null;
@@ -33,8 +40,8 @@ export function http(): AxiosInstance {
     instance.interceptors.request.use(async (config) => {
         const [sessionId, deviceBind, deviceId] = await Promise.all([
             Secure.get('SESSION_ID'),
-            Secure.get('DEVICE_BIND'),
-            getDeviceId(),                // ✅ 반드시 호출! () 잊지 말기
+            Secure.get('DEVICE_BIND'), // db 고유번호
+            Secure.get('DEVICE_ID'),                // ✅ 반드시 호출! () 잊지 말기
         ]);
 
         // ✅ Axios v1 타입 안전하게: 존재 안하면 새로 만들고, 키별 세팅

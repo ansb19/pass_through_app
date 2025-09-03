@@ -1,44 +1,40 @@
-import { requireBiometric } from '@/src/domains/auth/requireBiometric';
+import { Secure } from '@/src/core/storage/secureStore';
+import { AuthService } from '@/src/domains/auth/services/auth.service';
 import { useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
+import { Alert, KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 import AppLayout from './_components/AppLayout';
 import PasscodePad from './_components/PasscodePad';
-
 
 export default function LoginScreen() {
   const router = useRouter();
   const { t } = useTranslation('auth');
+
   const handleComplete = async (pin: string) => {
-    // ⚠️ PIN은 화면/로그에 노출하지 말 것
-    // TODO: 여기서 PIN 검증 or 파생키 생성(KDF) 등 처리
+    try {
+      const user_id = await Secure.get('USER_ID');
+      const device_bind = await Secure.get('DEVICE_BIND');
 
-    // 2) 생체 인증
-    const bio = await requireBiometric(t('biometric_prompt'));
-    if (!bio.ok) {
-      // 필요시: bio.reason에 따라 토스트/폴백 처리
-      if (bio.fallbackToPin) {
-        // 예: “생체 인증 불가/실패 → PIN만으로 계속 진행” or 재시도
+      if (!user_id || !device_bind) {
+        Alert.alert('로그인 실패', '저장된 사용자 또는 기기 정보가 없습니다.');
+        return;
       }
-      return;
+
+      // ✅ AuthService.login에 모든 절차 위임
+      const result = await AuthService.login(user_id, device_bind, pin, true);
+
+      if (!result.ok) {
+        Alert.alert('로그인 실패', result.message ?? '다시 시도해 주세요.');
+        return;
+      }
+
+      // ✅ 성공 → 홈으로 이동
+      router.replace('/home');
+    } catch (error: any) {
+      Alert.alert('로그인 실패', error.message ?? '다시 시도해 주세요.');
     }
-
-    // 성공 → 홈으로 전환(뒤로가기로 로그인 못 돌아오게 replace 권장)
-    router.replace('/home');
-
-    // try {
-    //   await Notifications.scheduleNotificationAsync({
-    //     content: {
-    //       title: '로그인 완료',
-    //       body: '보안 확인이 끝났어요.',
-    //     },
-    //     trigger: null, // 즉시
-    //   });
-    // } catch (e) {
-    //   console.log('local notification error', e);
-    // }
   };
 
   return (
@@ -46,7 +42,10 @@ export default function LoginScreen() {
       showFooter={false}
       headerProps={{ title: t('title'), onBackPress: () => router.back() }}
     >
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
         <View style={{ flex: 1, alignItems: 'center', paddingTop: 24 }}>
           <LottieView
             source={require('../assets/app/login_animation.json')}

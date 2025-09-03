@@ -18,9 +18,9 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { createEmptyForm, FIELDS } from '../../src/_constants/_form';
 import AppLayout from '../_components/AppLayout';
 import TabChips, { TabItem } from '../_components/TabChips';
-import { createEmptyForm, FIELDS } from './_form';
 
 
 

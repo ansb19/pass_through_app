@@ -1,3 +1,5 @@
+import { AuthApi } from '@/src/domains/auth/api/auth.api';
+import { UserService } from '@/src/domains/user/services/user.service';
 import { useSignupStore } from '@/src/stores/signup_store';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -14,57 +16,96 @@ export default function SignupStepTwoScreen() {
   const [emailVerified, setEmailVerified] = useState(false);
   const [phoneVerified, setPhoneVerified] = useState(false);
 
-  // ===== Mock API: 실제 API로 교체 =====
-  const apiEmailSend = async (email: string) => {
-    await new Promise(r => setTimeout(r, 250));
-    return { ok: true, txId: 'email_tx', ttl: 180 };
-  };
-  const apiEmailVerify = async (email: string, code: string) => {
-    await new Promise(r => setTimeout(r, 250));
-    return { ok: code.length === 6 };
-  };
-  const apiSmsSend = async (phone: string) => {
-    await new Promise(r => setTimeout(r, 250));
-    return { ok: true, txId: 'sms_tx', ttl: 180 };
-  };
-  const apiSmsVerify = async (phone: string, code: string) => {
-    await new Promise(r => setTimeout(r, 250));
-    return { ok: code.length === 6 };
+  // ===== ProfileForm에 넘길 콜백들 =====
+
+  const onCheckNickname = async (nickname: string) => {
+    const dup = await UserService.checkDuplicate('nickname', nickname);
+    if (dup.isDuplicate) {
+      Alert.alert(
+        t('signup:nickname_duplicate_title', '닉네임 중복'),
+        t('signup:nickname_duplicate_body', '이미 사용 중인 닉네임입니다.')
+      );
+      return false;
+    }
+    return true;
   };
 
-  // ===== ProfileForm에 넘길 콜백들 =====
   const onSendEmailOtp = async (email: string) => {
-    const res = await apiEmailSend(email);
-    if (!res.ok) throw new Error('email send fail');
-    return { ttl: res.ttl }; // 남은 초
+    const dup = await UserService.checkDuplicate('email', email);
+    if (dup.isDuplicate) {
+      Alert.alert(
+        t('signup:email_duplicate_title', '이메일 중복'),
+        t('signup:email_duplicate_body', '이미 사용 중인 이메일입니다.')
+      );
+      return null;
+    }
+
+    try {
+      const res = await AuthApi.sendCode('email', email);
+      if (!res.success) throw new Error('email send fail');
+      return { ttl: res.ttl ?? 300 };
+    } catch {
+      Alert.alert('오류', '이메일 인증 코드를 보내지 못했습니다.');
+      return null;
+    }
   };
 
   const onVerifyEmailOtp = async (email: string, code: string) => {
-    const res = await apiEmailVerify(email, code);
-    if (!res.ok) return false;
-    setEmailVerified(true);
-    Alert.alert(
-      t('signup:email_verify_success_title', '이메일 인증'),
-      t('signup:email_verify_success_body', '이메일 인증이 완료되었습니다.')
-    );
-    return true;
+    try {
+      const res = await AuthApi.verifyCode('email', email, code);
+      if (!res.success) throw new Error();
+      setEmailVerified(true);
+      Alert.alert(
+        t('signup:email_verify_success_title', '이메일 인증'),
+        t('signup:email_verify_success_body', '이메일 인증이 완료되었습니다.')
+      );
+      return true;
+    } catch {
+      Alert.alert(
+        t('signup:email_verify_fail_title', '이메일 인증 실패'),
+        t('signup:email_verify_fail_body', '시간이 지났거나 잘못된 코드입니다. 다시 시도해주세요.')
+      );
+      return false;
+    }
   };
 
   const onSendPhoneOtp = async (phone: string) => {
-    const res = await apiSmsSend(phone);
-    if (!res.ok) throw new Error('sms send fail');
-    return { ttl: res.ttl };
+    const dup = await UserService.checkDuplicate('phone', phone);
+    if (dup.isDuplicate) {
+      Alert.alert(
+        t('signup:phone_duplicate_title', '휴대폰 중복'),
+        t('signup:phone_duplicate_body', '이미 사용 중인 휴대폰 번호입니다.')
+      );
+      return null;
+    }
+
+    try {
+      const res = await AuthApi.sendCode('sms', phone);
+      if (!res.success) throw new Error('sms send fail');
+      return { ttl: res.ttl ?? 300 };
+    } catch {
+      Alert.alert('오류', 'SMS 인증 코드를 보내지 못했습니다.');
+      return null;
+    }
   };
 
   const onVerifyPhoneOtp = async (phone: string, code: string) => {
-    const res = await apiSmsVerify(phone, code);
-    if (!res.ok) return false;
-    setPhoneVerified(true);
-    Alert.alert(
-      t('signup:phone_verify_success_title', '휴대폰 인증'),
-      t('signup:phone_verify_success_body', '휴대폰 인증이 완료되었습니다.')
-    );
-    return true;
+    try {
+      const res = await AuthApi.verifyCode('sms', phone, code);
+      if (!res.success) throw new Error();
+      setPhoneVerified(true);
+      Alert.alert(
+        t('signup:phone_verify_success_title', '휴대폰 인증'),
+        t('signup:phone_verify_success_body', '휴대폰 인증이 완료되었습니다.')
+      );
+      return true;
+    } catch {
+      Alert.alert(
+        t('signup:phone_verify_fail_title', '휴대폰 인증 실패'),
+        t('signup:phone_verify_fail_body', '시간이 지났거나 잘못된 코드입니다. 다시 시도해주세요.')
+      );
+      return false;
+    }
   };
 
   const handleSubmit = (values: ProfileFormValues) => {
@@ -81,7 +122,7 @@ export default function SignupStepTwoScreen() {
       email: values.email,
       emailVerified: true,
       phone: values.phone,
-      phoneVerified: true
+      phoneVerified: true,
     });
     router.push('/signup/step3');
   };
@@ -91,7 +132,9 @@ export default function SignupStepTwoScreen() {
       showFooter={false}
       headerProps={{
         title: t('signup:title', '회원가입'),
-        onBackPress() { router.back(); }
+        onBackPress() {
+          router.back();
+        },
       }}
     >
       <View style={{ padding: 20, paddingBottom: 140, flex: 1 }}>
@@ -104,12 +147,12 @@ export default function SignupStepTwoScreen() {
           autoInvalidateOnEdit={false}
           onInvalidateEmail={() => setEmailVerified(false)}
           onInvalidatePhone={() => setPhoneVerified(false)}
-          // === 여기 4개만 연결하면 인라인 OTP 동작 ===
           onSendEmailOtp={onSendEmailOtp}
           onVerifyEmailOtp={onVerifyEmailOtp}
           onSendPhoneOtp={onSendPhoneOtp}
           onVerifyPhoneOtp={onVerifyPhoneOtp}
           onSubmit={handleSubmit}
+          onCheckNickname={onCheckNickname}
         />
       </View>
     </AppLayout>
